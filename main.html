@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css" media="screen">
+		#contenedor {
+  			margin-top: 280px
+		}
+		#TituloMenu{
+			height: 1px
+		}
+	</style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Formulario del estudiante</title>
+	<link rel="stylesheet" href="">
+</head>
+<body style="background-color:#CCEFE9;">
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+   
+    <div class="navbar-header">
+    	<h3 id="TituloMenu">
+  Estudiante --- 
+  <small class="text-muted">Registro del estudiante</small>
+</h3>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="./index.jsp">Indice</a></li>
+        <li><a href="./profile.jsp">Perfil</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="./LogoutServlet">Iniciar sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Parte del formulario -->
+<form>
+	<div class="form-group">
+    <label for="formGroupExampleInput">Nombre del estudiante</label>
+    <input type="text" class="form-control" id="nombre" placeholder="Example input">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput">ID del estudiante</label>
+    <input type="text" class="form-control" id="carnet" placeholder="Example input">
+  </div>
+	<div class="form-group">
+    <label for="exampleFormControlSelect1">Selecciona la universidad</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>Universidad de San Carlos de Guatemala</option>
+      <option>Universidad Rafael Landivar</option>
+      <option>Universidad del Valle de Guatemala</option>
+      <option>Universidad Francisco Marroquin</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Correo electrónico de estudiante</label>
+    <input type="email" class="form-control" id="correo" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">El correo electrónico no se compartirá con nadie.</div>
+  </div>
+  <div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label">---Contraseña</label>
+  </div>
+  <div class="col-auto">
+    <input type="password" id="contraseña" class="form-control" aria-describedby="passwordHelpInline">
+  </div>
+  <div class="col-auto">
+    <span id="passwordHelpInline" class="form-text">
+      ---Debe ser de 8-20 caracteres de largo
+    </span>
+  </div>
+</div>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">Masculino</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">Femenino</label>
+</div>
+  <div class="col text-center">
+  	<button type="submit" class="btn btn-primary" onclick="enviar()">Enviar</button>
+  </div>
+  
+</form>
+<div class="container" id="contenedor">
+           <button type="button" class="btn btn-primary btn-lg btn-block" onclick="cancelar()">Cancelar envio de formulario</button>
+     </div>
+
+<script>
+    	function cancelar(){
+    		alert("Desea cancelar?");
+            location.reload();
+        }
+        function enviar(){
+        	var carnet=document.getElementById("carnet").value;
+        	var nombre=document.getElementById("nombre").value;
+        	var contraseña=document.getElementById("contraseña").value;
+        	var correo=document.getElementById("correo").value;
+        	
+        	var validar=true;
+        	if (isNaN(nombre)) {
+        		validar=true;
+        	}else{
+        		validar=false;
+        	}
+        	if (contraseña.lenght > 8 && contraseña.lenght < 20) {
+        		validar=true;
+        	}else{
+        		validar=false;
+        	}
+        	if (validateEmail(correo)) {
+        		validar=true;
+        	}else{
+        		validar=false;
+        		alert("Correo no valido");
+        	}
+        	if (validar==true) {
+        		alert("Validar datos?")
+        	}else{
+        		alert("Un campo es invalido!")
+        	}
+        	
+        }
+        function validateEmail(email) {
+  			const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  			return re.test(email);
+		}
+    </script>
+
+</body>
+</html>
